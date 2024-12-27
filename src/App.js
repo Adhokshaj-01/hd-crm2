@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import ProtectedLayout from "./components/Auth/ProtectedLayout";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import Register from "./components/Console/Register/Register";
+import LoginPage from "./components/Auth/login";
+import { ThemeProviderWrapper } from "./theme/ThemeProviderWrapper";
+import RedirectHandler from "./components/Auth/RedirectHandler";
+import List from "./components/Console/List/List";
+import Dashboard from "./components/Console/Dashboard/Dashboard";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProviderWrapper>
+      <Router>
+        <Routes>
+          <Route path="/" element={<RedirectHandler />} />
+          <Route path="/auth" element={<LoginPage />} />
+          <Route
+            path="/console"
+            element={<Navigate to="/console/dashboard" />}
+          />
+          <Route
+            path="/console/*"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="list" element={<List />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to={"/auth"} />} />
+        </Routes>
+      </Router>
+    </ThemeProviderWrapper>
   );
 }
 
