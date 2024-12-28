@@ -31,7 +31,6 @@ const LoginPage = () => {
     setLoading(true); // Start loading when API call begins
     try {
       // API call to login using _auth function
-      console.log('data', data.email +''+data.password);
       const response = await _auth(data.email, data.password);
       
       if (response.status === "success") {
