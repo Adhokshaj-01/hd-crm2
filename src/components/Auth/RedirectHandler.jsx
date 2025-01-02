@@ -38,6 +38,8 @@ const RedirectHandler = () => {
     // Cleanup interval on unmount
     return () => clearInterval(interval);
   }, [navigate]);
+  // 
+ 
 
   if (loading) {
     return (

@@ -15,7 +15,20 @@ export const ThemeProviderWrapper = ({ children }) => {
       createTheme({
         palette: {
           mode: darkMode ? "dark" : "light",
+          background: {
+            default: darkMode ? "#09090B" : "#ffffff", // Use your preferred light mode color for contrast
+          },
+          components: {
+            MuiSvgIcon: {
+              styleOverrides: {
+                root: {
+                  color: darkMode ? "#ffffff" : "#000000",
+                },
+              },
+            },
+          },
         },
+
       }),
     [darkMode]
   );
@@ -44,3 +57,5 @@ export const ThemeProviderWrapper = ({ children }) => {
     </ThemeProvider>
   );
 };
+
+
